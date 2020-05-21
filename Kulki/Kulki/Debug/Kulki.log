@@ -1,0 +1,14 @@
+﻿  functions.cpp
+  main.cpp
+c:\users\karolina\desktop\informatyka polsl\iv semestr\programowanie komputerów\projekt\kulki\kulki\main.cpp(118): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\informatyka polsl\iv semestr\programowanie komputerów\projekt\kulki\kulki\main.cpp(119): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\informatyka polsl\iv semestr\programowanie komputerów\projekt\kulki\kulki\main.cpp(183): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\informatyka polsl\iv semestr\programowanie komputerów\projekt\kulki\kulki\main.cpp(101): warning C4101: "plansza": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\karolina\desktop\informatyka polsl\iv semestr\programowanie komputerów\projekt\kulki\kulki\functions.h(11): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  c:\users\karolina\desktop\informatyka polsl\iv semestr\programowanie komputerów\projekt\kulki\kulki\main.cpp(219): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
+          with
+          [
+              _Ty=Button *
+          ]
+  Generowanie kodu...
+  Kulki.vcxproj -> C:\Users\Karolina\Desktop\Informatyka POLSL\IV semestr\programowanie komputerów\projekt\Kulki\Debug\Kulki.exe
