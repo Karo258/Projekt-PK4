@@ -12,4 +12,8 @@ void delete_vector(std::vector<T>& wektor)
 		delete wektor[i];
 }
 
-void losowanie_kulek(std::vector < std::vector<Field*>>& pola, Ball* & kulka);
+void start_new_game();
+
+void restart_this_game();
+
+void end_game();

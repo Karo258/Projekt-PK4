@@ -78,11 +78,8 @@ int main()
 	//utworzenie wektora przycisków
 	std::vector<Button*> vector_of_buttons;
 	vector_of_buttons.push_back(new Button(650, 85, "NG_normal.png")); 
-	vector_of_buttons.push_back(new Button(650, 85, "NG_clicked.png"));
 	vector_of_buttons.push_back(new Button(650, 287, "RESET_normal.png"));
-	vector_of_buttons.push_back(new Button(650, 287, "RESET_clicked.png"));
 	vector_of_buttons.push_back(new Button(650, 485, "EG_normal.png"));
-	vector_of_buttons.push_back(new Button(650, 485, "EG_clicked.png"));
 
 	//utworzenia pola, na którym bêd¹ siê pojawia³y nadchodz¹ce kulki
 	al_draw_text(ttf_font, al_map_rgb(195, 195, 195), 850, 50, 0, "KOLEJNE KULKI");
@@ -138,9 +135,15 @@ int main()
 	srand(time(NULL));
 	while (!end) //g³ówna pêtla programu
 	{
-		vector_of_buttons[0]->draw();
-		vector_of_buttons[2]->draw();
-		vector_of_buttons[4]->draw();
+		for (int i = 0; i < vector_of_buttons.size(); i++)
+			vector_of_buttons[i]->draw();
+		
+		for (int i = 0; i < vector_of_buttons.size(); i ++)
+		{
+			bool covered = vector_of_buttons[i]->is_mouse_over();
+			if (covered == true)
+				i = vector_of_buttons.size();
+		}
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -181,21 +184,6 @@ int main()
 		//wyrysowanie nadchodz¹cych kulek
 		for (int i = 0; i < balls.size(); i++)
 			balls[i]->draw();
-
-		for (int i = 0; i < 8; i++)
-		{
-			for (int j = 0; j < 8; j++)
-			{
-				std::cout << pola_planszy[i][j]->is_full() << " ";
-			}
-			std::cout << std::endl;
-		}
-
-		//losowanie pola, na którym wyœwietli siê kulka
-		for (int i = 0; i < 3; i++)
-		{
-			losowanie_kulek(pola_planszy, balls[i]);
-		}
 
 		ALLEGRO_EVENT event;	//utworzenie zdarzenia
 		al_wait_for_event(event_queue, &event);	//oczekiwanie na zdarzenie
