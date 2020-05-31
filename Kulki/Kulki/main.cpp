@@ -96,25 +96,16 @@ int main()
 	najlepszy_wynik.draw();
 
 	//utworzenie pól gry
-	std::vector<Field*>tmp;
 	std::vector<std::vector<Field*>> pola_planszy;
 	for (int i = 1; i < 9; i++)
 	{
+		std::vector<Field*>tmp;
 		for (int j = 1; j < 9; j++)
 		{
 			tmp.push_back(new Field(i * 70, j * 70));
 		}
 		pola_planszy.push_back(tmp);
 	}
-	
-	//usuniêcie tymczasowego wektora, który pos³u¿y³ do dodawania elementów do wektora wektorów
-	while (!tmp.empty())
-		tmp.pop_back();
-
-	//wyrysowanie planszy
-	for (int i = 0; i < pola_planszy.size(); i++)
-		for (int j = 0; j < pola_planszy[i].size(); j++)
-			pola_planszy[i][j]->draw();
 
 	//wynik na pocz¹tku dzia³ania programu
 	const char* twoj_wynik = "0 0 0";
@@ -146,6 +137,27 @@ int main()
 			bool covered = vector_of_buttons[i]->is_mouse_over();
 			if (covered == true)
 				i = vector_of_buttons.size();
+		}
+
+		//wyrysowanie planszy
+		for (int i = 0; i < pola_planszy.size(); i++)
+			for (int j = 0; j < pola_planszy[i].size(); j++)
+				pola_planszy[i][j]->draw();
+
+
+		for (int i = 0; i < pola_planszy.size(); i++)
+		{
+			bool covered = false;
+			for (int j = 0; j < pola_planszy[i].size(); j++)
+			{
+				covered = pola_planszy[i][j]->is_mouse_over();
+				if (covered == true)
+				{
+					j = pola_planszy[i].size();
+				}
+			}
+			if (covered == true)
+				i = pola_planszy.size();
 		}
 
 		//losowanie kulek do kolejnej rundy

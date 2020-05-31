@@ -19,6 +19,7 @@ protected:
 	bool is_ball;					//zmienna przechowuj¹ca informacjê o tym czy na danym polu znajduje siê kulka
 public:
 	Field(int x, int y);			//konstruktor obiektu pola
+	bool is_mouse_over();			//funkjca realizuj¹ca zmianê koloru pola, po najechaniu na nie mysz¹
 	void draw();					// funkcja realizuj¹ca wyrysowanie obiektu pola
 };
 
