@@ -14,12 +14,12 @@ public:
 //I poziom dziedziczenia
 class Button : public GUIObject	//klasa przycisk, zawieraj¹ca funkcjonalnoœci dla przycisków w interfejsie
 {
-	const char* filename;
+	const char* filename; //nazwa pliku, z którego ³adowana jest bitmapa
 public:
 	Button(int x, int y, const char* file); //konstruktor przycisku
 	void draw(); //funkcja realizuj¹ca wyrysowanie obiektu przycisk
-	bool is_mouse_over();
-	bool is_mouse_clicked();
+	bool is_mouse_over(); //funkjca realizuj¹ca zmianê koloru przycisku, po najechaniu na niego mysz¹
+	bool is_mouse_clicked(); //funkcja realizuj¹ca wykonanie okreœlonej akcji po klikniêciu przycisku
 };
 
 class CommingBalls : public GUIObject //klasa nadchodz¹ce kulki, zawieraj¹ca funkcjonalnoœci dla pola, na którym wyœwietlane bêd¹ nadchodz¹ce kulki
@@ -32,13 +32,6 @@ public:
 class TextField : public GUIObject	//klasa pole tekstowe, przechowuj¹ca funkcjonalnoœci dla pól w których wyœwietlany bêdzie tekst
 {
 public:
-	TextField(int x, int y);
-	void draw();
-};
-
-//II poziom dziedziczenia 
-class ScoreDisplay : public TextField	//klasa wyœwietlacz wyniku przechowuj¹ca funkcjonalnoœci do wyœwietlania wyników
-{
-//public:
-//	void draw();
+	TextField(int x, int y); //konstruktor obiektu pole tekstowe
+	void draw();	//wyrysowanie pola tekstowego
 };

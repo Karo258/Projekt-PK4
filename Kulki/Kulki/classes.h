@@ -3,36 +3,34 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_color.h>
 
-class GraphicalObject	//wirtualna klasa bazowa
+class GraphicalObject		 //wirtualna klasa bazowa
 {
 protected:
-	int x_begin; //wspó³rzêdne pocz¹tku obiektu
+	int x_begin;			 //wspó³rzêdne pocz¹tku obiektu
 	int y_begin;
 public:
-	virtual void draw() = 0;
+	virtual void draw() = 0; //wirtualna funkcja realizuj¹ca wyrysowanie obiektu graficznego
 };
 
 //I poziom dziedziczenia
 class Field : public GraphicalObject //klasa pole gry, zawieraj¹ca funkcjonalnoœci dla pojedynczego pola planszy
 {
 protected:
-	bool is_ball;
+	bool is_ball;					//zmienna przechowuj¹ca informacjê o tym czy na danym polu znajduje siê kulka
 public:
-	Field(int x, int y);
-	void draw();
-	bool is_full();
-	void set_full();
+	Field(int x, int y);			//konstruktor obiektu pola
+	void draw();					// funkcja realizuj¹ca wyrysowanie obiektu pola
 };
 
-class Ball : public GraphicalObject	
+class Ball : public GraphicalObject					//klasa kulka, zawieraj¹ca funkcjonalnoœci dla kulek
 {
 protected:
-	ALLEGRO_COLOR color;
-	int radius;
+	ALLEGRO_COLOR color;							//kolor kulki
+	int radius;										//promieñ kulki
 public:
-	Ball(int x, int y, ALLEGRO_COLOR c, int r);
-	void draw();
-	void change_coordinates(int x, int y, int r); //metoda realizuj¹ca zmianê wspó³rzêdnych po³o¿enia kulki (w celu jej wyœwietlenia na odpowiednim polu planszy)
+	Ball(int x, int y, ALLEGRO_COLOR c, int r);		//konstruktor obiektu kulki
+	void draw();									//funkcja realizuj¹ca wyrysowanie obiektu kulki
+	void change_coordinates(int x, int y, int r);	//metoda realizuj¹ca zmianê wspó³rzêdnych po³o¿enia kulki (w celu jej wyœwietlenia na odpowiednim polu planszy)
 };
 
 //II poziom dziedziczenua

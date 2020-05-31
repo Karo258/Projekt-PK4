@@ -20,16 +20,6 @@ void Field::draw()
 
 }
 
-bool Field::is_full()
-{
-	return is_ball;
-}
-
-void Field::set_full()
-{
-	this->is_ball = true;
-}
-
 Ball::Ball(int x, int y, ALLEGRO_COLOR c, int r)
 {
 	this->x_begin = x;

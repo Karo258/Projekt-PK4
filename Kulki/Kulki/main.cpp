@@ -36,6 +36,7 @@ int main()
 		return -1;
 	}
 
+	//inicjalizacja elementów biblioteki graficznej Allegro 5
 	al_init_image_addon();
 	al_init_primitives_addon();
 	al_init_font_addon();
@@ -71,9 +72,9 @@ int main()
 	al_register_event_source(event_queue, al_get_display_event_source(main_display));	//ustawienie okna gry jako Ÿród³a zdarzeñ
 	al_register_event_source(event_queue, al_get_mouse_event_source());	//ustawienie myszy jako Ÿród³a zdarzeñ
 
-	//utworzenie czcionki
-	ALLEGRO_FONT* ttf_font = al_load_ttf_font("arial.ttf", 24, 0);
-	ALLEGRO_FONT* big_ttf_font = al_load_ttf_font("arial.ttf", 128, 0);
+	//utworzenie czcionek
+	ALLEGRO_FONT* ttf_font = al_load_ttf_font("arial.ttf", 24, 0);	//o wielkoœci 24
+	ALLEGRO_FONT* big_ttf_font = al_load_ttf_font("arial.ttf", 128, 0); // o wielkoœci 128
 
 	//utworzenie wektora przycisków
 	std::vector<Button*> vector_of_buttons;
@@ -135,9 +136,11 @@ int main()
 	srand(time(NULL));
 	while (!end) //g³ówna pêtla programu
 	{
+		//wyrysowanie przycisków
 		for (int i = 0; i < vector_of_buttons.size(); i++)
 			vector_of_buttons[i]->draw();
 		
+		//zmiana przycisku po najechaniu na niego mysz¹
 		for (int i = 0; i < vector_of_buttons.size(); i ++)
 		{
 			bool covered = vector_of_buttons[i]->is_mouse_over();
@@ -145,6 +148,7 @@ int main()
 				i = vector_of_buttons.size();
 		}
 
+		//losowanie kulek do kolejnej rundy
 		for (int i = 0; i < 3; i++)
 		{
 			int x;
@@ -211,6 +215,7 @@ int main()
 	
 	al_destroy_font(ttf_font); //usuniêcie czcionki o wielkoœci 24
 	al_destroy_font(big_ttf_font); //usuniêcie czcionki o wielkoœci 128
+	al_destroy_event_queue(event_queue); //usuniêcie kolejki zdarzeñ
 	al_destroy_display(main_display); //usuniêcie okna gry
 	return 0;
 }
