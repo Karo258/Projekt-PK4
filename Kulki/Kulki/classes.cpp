@@ -34,6 +34,16 @@ void Field::draw()
 	al_draw_filled_rectangle(x_begin, y_begin, x_begin + 70, y_begin + 70, al_map_rgb(195, 195, 195));
 }
 
+void Field::set_full()
+{
+	is_ball = true;
+}
+
+bool Field::is_full()
+{
+	return is_ball;
+}
+
 Ball::Ball(int x, int y, ALLEGRO_COLOR c, int r)
 {
 	this->x_begin = x;

@@ -20,7 +20,9 @@ protected:
 public:
 	Field(int x, int y);			//konstruktor obiektu pola
 	bool is_mouse_over();			//funkjca realizuj¹ca zmianê koloru pola, po najechaniu na nie mysz¹
-	void draw();					// funkcja realizuj¹ca wyrysowanie obiektu pola
+	void draw();					//funkcja realizuj¹ca wyrysowanie obiektu pola
+	void set_full();				//funkcja ustawiaj¹ca pole is_ball na wartoœæ true
+	bool is_full();					//funkcja zwracaj¹ca informacjê o tym, czy pole is_ball ma wartoœæ true
 };
 
 class Ball : public GraphicalObject					//klasa kulka, zawieraj¹ca funkcjonalnoœci dla kulek

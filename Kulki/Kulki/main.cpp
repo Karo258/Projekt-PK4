@@ -152,7 +152,6 @@ int main()
 			for (int j = 0; j < pola_planszy[i].size(); j++)
 				pola_planszy[i][j]->draw();
 
-
 		//zmiana pola planszy po najechaniu na nie mysz¹
 		for (int i = 0; i < pola_planszy.size(); i++)
 		{
@@ -207,6 +206,21 @@ int main()
 		//wyrysowanie nadchodz¹cych kulek
 		for (int i = 0; i < balls.size(); i++)
 			balls[i]->draw();
+
+		//wyrysowanie kulek w losowych miejscach na planszy
+		for (int i = 0; i < balls.size(); i++)
+		{
+			int row = rand() % 8;
+			int column = rand() % 8;
+			while (pola_planszy[row][column]->is_full() == true)
+			{
+				row = rand() % 8;
+				column = rand() % 8;
+			}
+			balls[i]->change_coordinates(105 + (row * 70), 105 + (column) * 70, 20);
+			balls[i]->draw();
+			pola_planszy[row][column]->set_full();
+		}
 
 		ALLEGRO_EVENT event;	//utworzenie zdarzenia
 		al_wait_for_event(event_queue, &event);	//oczekiwanie na zdarzenie
