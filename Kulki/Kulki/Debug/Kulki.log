@@ -1,2 +1,19 @@
 ﻿  GUI.cpp
+  functions.cpp
+  main.cpp
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(131): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(135): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(143): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(151): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(152): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(157): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(160): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(208): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\functions.h(11): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(229): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
+          with
+          [
+              _Ty=Button *
+          ]
+  Generowanie kodu...
   Kulki.vcxproj -> C:\Users\Karolina\Desktop\Projekt-PK4\Kulki\Debug\Kulki.exe

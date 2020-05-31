@@ -50,7 +50,29 @@ bool Button::is_mouse_over()
 
 bool Button::is_mouse_clicked()
 {
-	return false;
+	ALLEGRO_MOUSE_STATE state;
+	al_get_mouse_state(&state);
+	if ((state.x >= x_begin) && (state.x <= x_begin + 188) && (state.y >= y_begin) && (state.y <= y_begin + 135))
+	{
+		if (al_mouse_button_down(&state, 1))
+		{
+			if (y_begin == 85)
+			{
+				new_game();
+			}
+			else if (y_begin == 287)
+			{
+				reset();
+			}
+			else if (y_begin == 485)
+			{
+				end_game();
+			}
+		}
+		return true;
+	}
+	else
+		return false;
 }
 
 

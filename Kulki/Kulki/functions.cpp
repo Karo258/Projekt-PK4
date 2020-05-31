@@ -4,17 +4,17 @@
 
 #include "functions.h"
 
-void start_new_game()
+void new_game()
 {
-	std::cout << "Nowa gra" << std::endl;
+	std::cout << "NEW GAME" << std::endl;
 }
 
-void restart_this_game()
+void reset()
 {
-	std::cout << "Restart" << std::endl;
+	std::cout << "RESET" << std::endl;
 }
 
 void end_game()
 {
-	std::cout << "Koniec gry" << std::endl;
+	std::cout << "END GAME" << std::endl;
 }
