@@ -19,6 +19,8 @@ bool Field::is_mouse_over()
 	if ((state.x >= x_begin) && (state.x <= (x_begin + 70)) && (state.y >= y_begin) && (state.y <= (y_begin + 70)))
 	{
 		al_draw_filled_rectangle(x_begin, y_begin, x_begin + 70, y_begin + 70, al_map_rgb(130, 130, 130));
+		al_draw_line(x_begin, y_begin + 70, x_begin + 70, y_begin + 70, al_map_rgb(0, 0, 0), 1);
+		al_draw_line(x_begin + 70, y_begin, x_begin + 70, y_begin + 70, al_map_rgb(0, 0, 0), 1);
 		return true;
 	}
 	else
@@ -30,7 +32,6 @@ void Field::draw()
 	al_draw_line(x_begin, y_begin, x_begin + 70, y_begin,al_map_rgb(0,0,0),1);
 	al_draw_line(x_begin, y_begin, x_begin, y_begin + 70, al_map_rgb(0, 0, 0), 1);
 	al_draw_filled_rectangle(x_begin, y_begin, x_begin + 70, y_begin + 70, al_map_rgb(195, 195, 195));
-
 }
 
 Ball::Ball(int x, int y, ALLEGRO_COLOR c, int r)

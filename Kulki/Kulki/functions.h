@@ -19,4 +19,4 @@ void new_game();
 void reset(); 
 
 //funkcja realizuj¹ca akcje zwi¹zane z zakoñczeniem gry
-void end_game();
+void end_game(bool &status);

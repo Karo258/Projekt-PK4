@@ -142,7 +142,7 @@ int main()
 		//wywo³anie akcji zwi¹zanych z przyciskami
 		for (int i = 0; i < vector_of_buttons.size(); i++)
 		{
-			bool  clicked = vector_of_buttons[i]->is_mouse_clicked();
+			bool  clicked = vector_of_buttons[i]->is_mouse_clicked(end);
 			if (clicked)
 				i = vector_of_buttons.size();
 		}
@@ -222,7 +222,9 @@ int main()
 
 		//zapisanie tabeli wyników do pliku tekstowego po zakoñczeniu gry przez u¿ytkownika
 		if (end)
+		{
 			write_to_file("tabela_wynikow.txt", score_list);
+		}
 	}
 
 	//usuniêcie wektora przycisków

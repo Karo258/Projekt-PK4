@@ -19,7 +19,7 @@ public:
 	Button(int x, int y, const char* file); //konstruktor przycisku
 	void draw(); //funkcja realizuj¹ca wyrysowanie obiektu przycisk
 	bool is_mouse_over(); //funkjca realizuj¹ca zmianê koloru przycisku, po najechaniu na niego mysz¹
-	bool is_mouse_clicked(); //funkcja realizuj¹ca wykonanie okreœlonej akcji po klikniêciu przycisku
+	bool is_mouse_clicked(bool &status); //funkcja realizuj¹ca wykonanie okreœlonej akcji po klikniêciu przycisku
 };
 
 class CommingBalls : public GUIObject //klasa nadchodz¹ce kulki, zawieraj¹ca funkcjonalnoœci dla pola, na którym wyœwietlane bêd¹ nadchodz¹ce kulki

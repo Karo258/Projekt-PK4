@@ -48,7 +48,7 @@ bool Button::is_mouse_over()
 		return false;
 }
 
-bool Button::is_mouse_clicked()
+bool Button::is_mouse_clicked(bool &status)
 {
 	ALLEGRO_MOUSE_STATE state;
 	al_get_mouse_state(&state);
@@ -66,7 +66,7 @@ bool Button::is_mouse_clicked()
 			}
 			else if (y_begin == 485)
 			{
-				end_game();
+				end_game(status);
 			}
 		}
 		return true;
