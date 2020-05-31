@@ -1,17 +1,17 @@
 ﻿  main.cpp
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(131): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(135): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(143): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(151): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(152): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(156): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(124): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(134): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(138): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(146): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(154): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(155): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
 c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(159): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(207): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(211): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(226): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(228): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(162): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(173): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(184): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(188): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
 c:\users\karolina\desktop\projekt-pk4\kulki\kulki\functions.h(11): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(255): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
+  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(220): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
           with
           [
               _Ty=Button *

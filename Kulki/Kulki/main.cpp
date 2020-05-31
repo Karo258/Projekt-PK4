@@ -101,9 +101,7 @@ int main()
 	{
 		std::vector<Field*>tmp;
 		for (int j = 1; j < 9; j++)
-		{
 			tmp.push_back(new Field(i * 70, j * 70));
-		}
 		pola_planszy.push_back(tmp);
 	}
 
@@ -122,6 +120,11 @@ int main()
 	
 	//stworzenie wektora nadchodz¹cych kulek
 	std::vector<Ball*> balls;
+	losuj_kulki(balls);
+	for (int i = 0; i < balls.size(); i++)
+		balls[i]->draw();
+
+	std::vector<Ball*> new_balls;
 
 	bool end = false; //zmienna lokalna przechowuj¹ca warunek g³ównej pêtli programu
 	srand(time(NULL));
@@ -166,49 +169,23 @@ int main()
 				i = pola_planszy.size();
 		}
 
+		//przepisanie poprzednio wylosowanych kulek do nowego wektora
+		for (int i = 0; i < balls.size(); i++)
+			new_balls.push_back(balls[i]);
+		
+		//usuniêcie elementów wektora przechowuj¹cego nadchodzace kulki
+		for (int i = balls.size(); i > 0; i--)
+			balls.pop_back();
+
 		//losowanie kulek do kolejnej rundy
-		for (int i = 0; i < 3; i++)
-		{
-			int x;
-			int tmp = rand() % 4;
-			if (i == 0)
-				x = 913;
-			else if (i == 1)
-				x = 1035;
-			else
-				x = 1158;
-			switch (tmp)
-			{
-			case 0:
-			{
-				balls.push_back(new Ball(x, 150, al_map_rgb(255, 0, 0), 40));
-				break;
-			}
-			case 1:
-			{
-				balls.push_back(new Ball(x, 150, al_map_rgb(0, 0, 255), 40));
-				break;
-			}
-			case 2:
-			{
-				balls.push_back(new Ball(x, 150, al_map_rgb(0, 255, 0), 40));
-				break;
-			}
-			case 3:
-			{
-				balls.push_back(new Ball(x, 150, al_map_rgb(255, 255, 0), 40));
-				break;
-			}
-			}
-			
-		}
+		losuj_kulki(balls);
 		
 		//wyrysowanie nadchodz¹cych kulek
 		for (int i = 0; i < balls.size(); i++)
 			balls[i]->draw();
 
 		//wyrysowanie kulek w losowych miejscach na planszy
-		for (int i = 0; i < balls.size(); i++)
+		for (int i = 0; i < new_balls.size(); i++)
 		{
 			int row = rand() % 8;
 			int column = rand() % 8;
@@ -217,8 +194,8 @@ int main()
 				row = rand() % 8;
 				column = rand() % 8;
 			}
-			balls[i]->change_coordinates(105 + (row * 70), 105 + (column) * 70, 20);
-			balls[i]->draw();
+			new_balls[i]->change_coordinates(105 + (row * 70), 105 + (column) * 70, 20);
+			new_balls[i]->draw();
 			pola_planszy[row][column]->set_full();
 		}
 
@@ -230,15 +207,13 @@ int main()
 
 		al_flip_display();
 
-		//usuniêcie elementów wektora przechowuj¹cego kulki
-		for (int i = balls.size(); i > 0; i--)
-			balls.pop_back();
+		//usuniecie elementow wektora przechowuj¹cego aktualne kulki
+		for (int i = new_balls.size(); i > 0; i--)
+			new_balls.pop_back();
 
 		//zapisanie tabeli wyników do pliku tekstowego po zakoñczeniu gry przez u¿ytkownika
 		if (end)
-		{
 			write_to_file("tabela_wynikow.txt", score_list);
-		}
 	}
 
 	//usuniêcie wektora przycisków

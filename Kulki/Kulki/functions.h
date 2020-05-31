@@ -20,3 +20,6 @@ void reset();
 
 //funkcja realizuj¹ca akcje zwi¹zane z zakoñczeniem gry
 void end_game(bool &status);
+
+//funkcja realizuj¹ca losowanie nadchodz¹cych kulek
+void losuj_kulki(std::vector<Ball*> & wektor);
