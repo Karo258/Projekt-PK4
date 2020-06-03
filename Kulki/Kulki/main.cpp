@@ -187,6 +187,10 @@ int main()
 		for (int i = new_balls.size(); i > 0; i--)
 			new_balls.pop_back();
 
+		//zakoñczenie gry, gdy na planszy znajêtych bêdzie wiêcej ni¿ 61 pól - brak mo¿liwoœci wstawienia kolejnych kulek
+		if (pola_planszy.is_full())
+			end = true;
+
 		//zapisanie tabeli wyników do pliku tekstowego po zakoñczeniu gry przez u¿ytkownika
 		if (end)
 			write_to_file("tabela_wynikow.txt", score_list);

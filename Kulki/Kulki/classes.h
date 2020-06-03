@@ -41,13 +41,13 @@ public:
 class Board : public Field	//klasa plansza, zawieraj¹ca funkcjonalnoœci dla planszy jako ca³oœci
 {
 protected:
-	std::vector<std::vector<Field*>> board;
-	int size;
-	bool full;
+	std::vector<std::vector<Field*>> board;				//plansza
+	int size;											//rozmiar - jeden, poniewa¿ plansza jest zawsze kwadratem
 public:
-	Board();
-	void draw();
-	void is_mouse_over();
-	void draw_balls(std::vector<Ball*> & new_balls);
-	~Board();
+	Board();											//konstruktor planszy
+	void draw();										//wyrysowanie planszy
+	void is_mouse_over();								//funkcja wywo³uj¹ca funkcjê is_mouse_over dla pola planszy
+	void draw_balls(std::vector<Ball*> & new_balls);	//wyrysowanie nowych kulek na planszy
+	~Board();											//destruktor planszy - usuwa wektor wektorów wskaŸników na pola planszy
+	bool is_full();										//funkcja realizuj¹ca sprawdzenie czy s¹ wolne miejsca do wstawienia kolejnych kulek
 };

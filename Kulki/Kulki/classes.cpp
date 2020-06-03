@@ -82,7 +82,6 @@ Board::Board()
 	this->x_begin = 70;
 	this->y_begin = 70;
 	this->size = 8;
-	this->full = false;
 }
 
 void Board::draw()
@@ -130,3 +129,17 @@ Board::~Board()
 	for (int i = size; i == 0; i++)
 		delete_vector(board[i]);
 }
+
+bool Board::is_full()
+{
+	int check = 0;
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			if (board[i][j]->is_full() == true)
+				check++;
+	if (check > 61)
+		return true;
+	else
+		return false;
+}
+
