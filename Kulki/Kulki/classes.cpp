@@ -1,9 +1,15 @@
 #include <iostream>
 #include <iostream>
+#include <vector>
 
 #include <allegro5/allegro_primitives.h>
 
 #include "classes.h"
+#include "functions.h"
+
+Field::Field()
+{
+}
 
 Field::Field(int x, int y)
 {
@@ -62,4 +68,65 @@ void Ball::change_coordinates(int x, int y, int r)
 	this->x_begin = x;
 	this->y_begin = y;
 	this->radius = r;
+}
+
+Board::Board()
+{
+	for (int i = 1; i < 9; i++)
+	{
+		std::vector<Field*>tmp;
+		for (int j = 1; j < 9; j++)
+			tmp.push_back(new Field(i * 70, j * 70));
+		board.push_back(tmp);
+	}
+	this->x_begin = 70;
+	this->y_begin = 70;
+	this->size = 8;
+	this->full = false;
+}
+
+void Board::draw()
+{
+	for (int i = 0; i < this->size; i++)
+		for (int j = 0; j < this->size; j++)
+			board[i][j]->draw();
+}
+
+void Board::is_mouse_over()
+{
+	for (int i = 0; i < this->size; i++)
+	{
+		bool covered = false;
+		for (int j = 0; j < this->size; j++)
+		{
+			covered = board[i][j]->is_mouse_over();
+			if (covered)
+				j = size;
+		}
+		if (covered)
+			i = size;
+	}
+}
+
+void Board::draw_balls(std::vector<Ball*> & new_balls)
+{
+	for (int i = 0; i < new_balls.size(); i++)
+	{
+		int row = rand() % 8;
+		int column = rand() % 8;
+		while (board[row][column]->is_full() == true)
+		{
+			row = rand() % 8;
+			column = rand() % 8;
+		}
+		new_balls[i]->change_coordinates(105 + (row * 70), 105 + (column) * 70, 20);
+		new_balls[i]->draw();
+		board[row][column]->set_full();
+	}
+}
+
+Board::~Board()
+{
+	for (int i = size; i == 0; i++)
+		delete_vector(board[i]);
 }

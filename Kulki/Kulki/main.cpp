@@ -96,14 +96,8 @@ int main()
 	najlepszy_wynik.draw();
 
 	//utworzenie pól gry
-	std::vector<std::vector<Field*>> pola_planszy;
-	for (int i = 1; i < 9; i++)
-	{
-		std::vector<Field*>tmp;
-		for (int j = 1; j < 9; j++)
-			tmp.push_back(new Field(i * 70, j * 70));
-		pola_planszy.push_back(tmp);
-	}
+	Board pola_planszy;
+	pola_planszy = Board();
 
 	//wynik na pocz¹tku dzia³ania programu
 	const char* twoj_wynik = "0 0 0";
@@ -151,23 +145,10 @@ int main()
 		}
 
 		//wyrysowanie planszy
-		for (int i = 0; i < pola_planszy.size(); i++)
-			for (int j = 0; j < pola_planszy[i].size(); j++)
-				pola_planszy[i][j]->draw();
+		pola_planszy.draw();
 
 		//zmiana pola planszy po najechaniu na nie mysz¹
-		for (int i = 0; i < pola_planszy.size(); i++)
-		{
-			bool covered = false;
-			for (int j = 0; j < pola_planszy[i].size(); j++)
-			{
-				covered = pola_planszy[i][j]->is_mouse_over();
-				if (covered)
-					j = pola_planszy[i].size();
-			}
-			if (covered)
-				i = pola_planszy.size();
-		}
+		pola_planszy.is_mouse_over();
 
 		//przepisanie poprzednio wylosowanych kulek do nowego wektora
 		for (int i = 0; i < balls.size(); i++)
@@ -185,18 +166,13 @@ int main()
 			balls[i]->draw();
 
 		//wyrysowanie kulek w losowych miejscach na planszy
-		for (int i = 0; i < new_balls.size(); i++)
+		pola_planszy.draw_balls(new_balls);
+
+		//pêtla do przestawiania kulek
+		bool moved = false;
+		while (!moved)
 		{
-			int row = rand() % 8;
-			int column = rand() % 8;
-			while (pola_planszy[row][column]->is_full() == true)
-			{
-				row = rand() % 8;
-				column = rand() % 8;
-			}
-			new_balls[i]->change_coordinates(105 + (row * 70), 105 + (column) * 70, 20);
-			new_balls[i]->draw();
-			pola_planszy[row][column]->set_full();
+			moved = true;
 		}
 
 		ALLEGRO_EVENT event;	//utworzenie zdarzenia
@@ -220,8 +196,7 @@ int main()
 	delete_vector(vector_of_buttons);
 
 	//usuniêcie wektora wektorów pól planszy
-	for (int i = pola_planszy.size(); i==0; i++)
-		delete_vector(pola_planszy[i]);
+	pola_planszy.~Board();
 	
 	al_destroy_font(ttf_font); //usuniêcie czcionki o wielkoœci 24
 	al_destroy_font(big_ttf_font); //usuniêcie czcionki o wielkoœci 128

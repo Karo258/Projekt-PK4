@@ -18,6 +18,7 @@ class Field : public GraphicalObject //klasa pole gry, zawieraj¹ca funkcjonalnoœ
 protected:
 	bool is_ball;					//zmienna przechowuj¹ca informacjê o tym czy na danym polu znajduje siê kulka
 public:
+	Field();
 	Field(int x, int y);			//konstruktor obiektu pola
 	bool is_mouse_over();			//funkjca realizuj¹ca zmianê koloru pola, po najechaniu na nie mysz¹
 	void draw();					//funkcja realizuj¹ca wyrysowanie obiektu pola
@@ -36,8 +37,17 @@ public:
 	void change_coordinates(int x, int y, int r);	//metoda realizuj¹ca zmianê wspó³rzêdnych po³o¿enia kulki (w celu jej wyœwietlenia na odpowiednim polu planszy)
 };
 
-//II poziom dziedziczenua
+//II poziom dziedziczenia
 class Board : public Field	//klasa plansza, zawieraj¹ca funkcjonalnoœci dla planszy jako ca³oœci
 {
-
+protected:
+	std::vector<std::vector<Field*>> board;
+	int size;
+	bool full;
+public:
+	Board();
+	void draw();
+	void is_mouse_over();
+	void draw_balls(std::vector<Ball*> & new_balls);
+	~Board();
 };
