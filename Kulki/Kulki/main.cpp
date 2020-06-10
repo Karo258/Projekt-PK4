@@ -74,6 +74,7 @@ int main()
 
 	//utworzenie czcionek
 	ALLEGRO_FONT* ttf_font = al_load_ttf_font("arial.ttf", 24, 0);	//o wielkoœci 24
+	ALLEGRO_FONT* middle_ttf_font = al_load_ttf_font("arial.ttf", 64, 0); //o wielkoœci 64
 	ALLEGRO_FONT* big_ttf_font = al_load_ttf_font("arial.ttf", 128, 0); // o wielkoœci 128
 
 	//utworzenie wektora przycisków
@@ -175,12 +176,6 @@ int main()
 			moved = true;
 		}
 
-		ALLEGRO_EVENT event;	//utworzenie zdarzenia
-		al_wait_for_event(event_queue, &event);	//oczekiwanie na zdarzenie
-
-		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)	//zamykanie okna gry za pomoc¹ przycisku "X" w prawym górnym rogu okna
-			end = true;
-
 		al_flip_display();
 
 		//usuniecie elementow wektora przechowuj¹cego aktualne kulki
@@ -190,11 +185,56 @@ int main()
 		//zakoñczenie gry, gdy na planszy znajêtych bêdzie wiêcej ni¿ 61 pól - brak mo¿liwoœci wstawienia kolejnych kulek
 		if (pola_planszy.is_full())
 			end = true;
-
-		//zapisanie tabeli wyników do pliku tekstowego po zakoñczeniu gry przez u¿ytkownika
-		if (end)
-			write_to_file("tabela_wynikow.txt", score_list);
 	}
+
+	//pêtla do wykonywania wszystkich opcji po zakoñczeniu gry oraz wypisywania wyników
+	bool definitive_end = false;
+	while (!definitive_end)
+	{
+		al_clear_to_color(al_map_rgb(30, 110, 125));
+		//wypisywanie tablicy wyników
+		al_draw_text(middle_ttf_font, al_map_rgb(0, 0, 0), 70, 70, 0, "WYNIKI:");
+		int x_pocz = 70;
+		int y_pocz = 140;
+		for (int i = 0; i < 8; i++)
+		{
+			char* wynik = new char[score_list->wypisz_element(i).length() + 1];
+			std::strcpy(wynik, score_list->wypisz_element(i).c_str());
+			al_draw_text(middle_ttf_font, al_map_rgb(0, 0, 0), x_pocz, y_pocz, 0, wynik);
+			y_pocz += 70;
+		}
+
+		//wyrysowanie przycisków
+		vector_of_buttons[0]->draw();
+		vector_of_buttons[2]->draw();
+
+		//zmiana przycisku po najechaniu na niego mysz¹
+		for (int i = 0; i < vector_of_buttons.size(); i+=2)
+		{
+			bool covered = vector_of_buttons[i]->is_mouse_over();
+			if (covered == true)
+				i = vector_of_buttons.size();
+		}
+
+		//wywo³anie akcji zwi¹zanych z przyciskami
+		for (int i = 0; i < vector_of_buttons.size(); i+=2)
+		{
+			bool  clicked = vector_of_buttons[i]->is_mouse_clicked(definitive_end);
+			if (clicked)
+				i = vector_of_buttons.size();
+		}
+
+		ALLEGRO_EVENT event;	//utworzenie zdarzenia
+		al_wait_for_event(event_queue, &event);	//oczekiwanie na zdarzenie
+
+		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)	//zamykanie okna gry za pomoc¹ przycisku "X" w prawym górnym rogu okna
+			definitive_end = true;
+		al_flip_display();
+	}
+
+	//zapisanie tabeli wyników do pliku tekstowego po zakoñczeniu gry przez u¿ytkownika
+	if (end)
+		write_to_file("tabela_wynikow.txt", score_list);
 
 	//usuniêcie wektora przycisków
 	delete_vector(vector_of_buttons);
