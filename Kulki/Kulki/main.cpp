@@ -119,6 +119,7 @@ int main()
 	for (int i = 0; i < balls.size(); i++)
 		balls[i]->draw();
 
+	//stworzenie wektora kulek z poprzedniej rundy
 	std::vector<Ball*> new_balls;
 
 	bool end = false; //zmienna lokalna przechowuj¹ca warunek g³ównej pêtli programu
@@ -128,9 +129,9 @@ int main()
 		//wyrysowanie przycisków
 		for (int i = 0; i < vector_of_buttons.size(); i++)
 			vector_of_buttons[i]->draw();
-		
+
 		//zmiana przycisku po najechaniu na niego mysz¹
-		for (int i = 0; i < vector_of_buttons.size(); i ++)
+		for (int i = 0; i < vector_of_buttons.size(); i++)
 		{
 			bool covered = vector_of_buttons[i]->is_mouse_over();
 			if (covered == true)
@@ -145,34 +146,35 @@ int main()
 				i = vector_of_buttons.size();
 		}
 
-		//wyrysowanie planszy
-		pola_planszy.draw();
-
-		//zmiana pola planszy po najechaniu na nie mysz¹
-		pola_planszy.is_mouse_over();
-
 		//przepisanie poprzednio wylosowanych kulek do nowego wektora
 		for (int i = 0; i < balls.size(); i++)
 			new_balls.push_back(balls[i]);
-		
+
 		//usuniêcie elementów wektora przechowuj¹cego nadchodzace kulki
 		for (int i = balls.size(); i > 0; i--)
 			balls.pop_back();
 
 		//losowanie kulek do kolejnej rundy
 		losuj_kulki(balls);
-		
+
 		//wyrysowanie nadchodz¹cych kulek
 		for (int i = 0; i < balls.size(); i++)
 			balls[i]->draw();
 
-		//wyrysowanie kulek w losowych miejscach na planszy
-		pola_planszy.draw_balls(new_balls);
+		//dodanie kulek do pól planszy
+		pola_planszy.add_ball_to_board(new_balls);
+
+		//wyrysowanie planszy i znajduj¹cych siê na niej kulek
+		pola_planszy.draw();
+
+		//zmiana pola planszy po najechaniu na nie mysz¹
+		pola_planszy.is_mouse_over();
 
 		//pêtla do przestawiania kulek
 		bool moved = false;
 		while (!moved)
 		{
+
 			moved = true;
 		}
 
@@ -193,35 +195,16 @@ int main()
 	{
 		al_clear_to_color(al_map_rgb(30, 110, 125));
 		//wypisywanie tablicy wyników
-		al_draw_text(middle_ttf_font, al_map_rgb(0, 0, 0), 70, 70, 0, "WYNIKI:");
-		int x_pocz = 70;
-		int y_pocz = 140;
+		al_draw_filled_rounded_rectangle(290, 10, 990, 710, 20, 20, al_map_rgb(195,195,195));
+		al_draw_text(middle_ttf_font, al_map_rgb(0, 0, 0), 295, 45, 0, "WYNIKI:");
+		int x_pocz = 295;
+		int y_pocz = 115;
 		for (int i = 0; i < 8; i++)
 		{
 			char* wynik = new char[score_list->wypisz_element(i).length() + 1];
 			std::strcpy(wynik, score_list->wypisz_element(i).c_str());
 			al_draw_text(middle_ttf_font, al_map_rgb(0, 0, 0), x_pocz, y_pocz, 0, wynik);
 			y_pocz += 70;
-		}
-
-		//wyrysowanie przycisków
-		vector_of_buttons[0]->draw();
-		vector_of_buttons[2]->draw();
-
-		//zmiana przycisku po najechaniu na niego mysz¹
-		for (int i = 0; i < vector_of_buttons.size(); i+=2)
-		{
-			bool covered = vector_of_buttons[i]->is_mouse_over();
-			if (covered == true)
-				i = vector_of_buttons.size();
-		}
-
-		//wywo³anie akcji zwi¹zanych z przyciskami
-		for (int i = 0; i < vector_of_buttons.size(); i+=2)
-		{
-			bool  clicked = vector_of_buttons[i]->is_mouse_clicked(definitive_end);
-			if (clicked)
-				i = vector_of_buttons.size();
 		}
 
 		ALLEGRO_EVENT event;	//utworzenie zdarzenia

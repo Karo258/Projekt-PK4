@@ -16,6 +16,7 @@ Field::Field(int x, int y)
 	this->x_begin = x;
 	this->y_begin = y;
 	this->is_ball = false;
+	this->fields_ball = nullptr;
 }
 
 bool Field::is_mouse_over()
@@ -27,6 +28,8 @@ bool Field::is_mouse_over()
 		al_draw_filled_rectangle(x_begin, y_begin, x_begin + 70, y_begin + 70, al_map_rgb(130, 130, 130));
 		al_draw_line(x_begin, y_begin + 70, x_begin + 70, y_begin + 70, al_map_rgb(0, 0, 0), 1);
 		al_draw_line(x_begin + 70, y_begin, x_begin + 70, y_begin + 70, al_map_rgb(0, 0, 0), 1);
+		if (is_ball)
+			fields_ball->draw();
 		return true;
 	}
 	else
@@ -38,6 +41,8 @@ void Field::draw()
 	al_draw_line(x_begin, y_begin, x_begin + 70, y_begin,al_map_rgb(0,0,0),1);
 	al_draw_line(x_begin, y_begin, x_begin, y_begin + 70, al_map_rgb(0, 0, 0), 1);
 	al_draw_filled_rectangle(x_begin, y_begin, x_begin + 70, y_begin + 70, al_map_rgb(195, 195, 195));
+	if (is_ball)
+		fields_ball->draw();
 }
 
 void Field::set_full()
@@ -48,6 +53,11 @@ void Field::set_full()
 bool Field::is_full()
 {
 	return is_ball;
+}
+
+void Field::set_ball(Ball * added_ball)
+{
+	this->fields_ball = added_ball;
 }
 
 Ball::Ball(int x, int y, ALLEGRO_COLOR c, int r)
@@ -107,23 +117,6 @@ void Board::is_mouse_over()
 	}
 }
 
-void Board::draw_balls(std::vector<Ball*> & new_balls)
-{
-	for (int i = 0; i < new_balls.size(); i++)
-	{
-		int row = rand() % 8;
-		int column = rand() % 8;
-		while (board[row][column]->is_full() == true)
-		{
-			row = rand() % 8;
-			column = rand() % 8;
-		}
-		new_balls[i]->change_coordinates(105 + (row * 70), 105 + (column) * 70, 20);
-		new_balls[i]->draw();
-		board[row][column]->set_full();
-	}
-}
-
 Board::~Board()
 {
 	for (int i = size; i == 0; i++)
@@ -141,5 +134,22 @@ bool Board::is_full()
 		return true;
 	else
 		return false;
+}
+
+void Board::add_ball_to_board(std::vector<Ball*> & new_balls)
+{
+	for (int i = 0; i < new_balls.size(); i++)
+	{
+		int row = rand() % 8;
+		int column = rand() % 8;
+		while (board[row][column]->is_full() == true)
+		{
+			row = rand() % 8;
+			column = rand() % 8;
+		}
+		new_balls[i]->change_coordinates(105 + (row * 70), 105 + (column) * 70, 20);
+		board[row][column]->set_ball(new_balls[i]);
+		board[row][column]->set_full();
+	}
 }
 

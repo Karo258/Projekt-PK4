@@ -13,19 +13,6 @@ public:
 };
 
 //I poziom dziedziczenia
-class Field : public GraphicalObject //klasa pole gry, zawieraj¹ca funkcjonalnoœci dla pojedynczego pola planszy
-{
-protected:
-	bool is_ball;					//zmienna przechowuj¹ca informacjê o tym czy na danym polu znajduje siê kulka
-public:
-	Field();
-	Field(int x, int y);			//konstruktor obiektu pola
-	bool is_mouse_over();			//funkjca realizuj¹ca zmianê koloru pola, po najechaniu na nie mysz¹
-	void draw();					//funkcja realizuj¹ca wyrysowanie obiektu pola
-	void set_full();				//funkcja ustawiaj¹ca pole is_ball na wartoœæ true
-	bool is_full();					//funkcja zwracaj¹ca informacjê o tym, czy pole is_ball ma wartoœæ true
-};
-
 class Ball : public GraphicalObject					//klasa kulka, zawieraj¹ca funkcjonalnoœci dla kulek
 {
 protected:
@@ -37,17 +24,32 @@ public:
 	void change_coordinates(int x, int y, int r);	//metoda realizuj¹ca zmianê wspó³rzêdnych po³o¿enia kulki (w celu jej wyœwietlenia na odpowiednim polu planszy)
 };
 
+class Field : public GraphicalObject //klasa pole gry, zawieraj¹ca funkcjonalnoœci dla pojedynczego pola planszy
+{
+protected:
+	bool is_ball;					//zmienna przechowuj¹ca informacjê o tym czy na danym polu znajduje siê kulka
+	Ball* fields_ball;				//kulka znajduj¹ca siê na polu
+public:
+	Field();
+	Field(int x, int y);			//konstruktor obiektu pola
+	bool is_mouse_over();			//funkjca realizuj¹ca zmianê koloru pola, po najechaniu na nie mysz¹
+	void draw();					//funkcja realizuj¹ca wyrysowanie obiektu pola
+	void set_full();				//funkcja ustawiaj¹ca pole is_ball na wartoœæ true
+	bool is_full();					//funkcja zwracaj¹ca informacjê o tym, czy pole is_ball ma wartoœæ true
+	void set_ball(Ball* added_ball);//funkcja realizuj¹ca dodawanie kulki do pola
+};
+
 //II poziom dziedziczenia
 class Board : public Field	//klasa plansza, zawieraj¹ca funkcjonalnoœci dla planszy jako ca³oœci
 {
 protected:
-	std::vector<std::vector<Field*>> board;				//plansza
-	int size;											//rozmiar - jeden, poniewa¿ plansza jest zawsze kwadratem
+	std::vector<std::vector<Field*>> board;					//plansza
+	int size;												//rozmiar - jeden, poniewa¿ plansza jest zawsze kwadratem
 public:
-	Board();											//konstruktor planszy
-	void draw();										//wyrysowanie planszy
-	void is_mouse_over();								//funkcja wywo³uj¹ca funkcjê is_mouse_over dla pola planszy
-	void draw_balls(std::vector<Ball*> & new_balls);	//wyrysowanie nowych kulek na planszy
-	~Board();											//destruktor planszy - usuwa wektor wektorów wskaŸników na pola planszy
-	bool is_full();										//funkcja realizuj¹ca sprawdzenie czy s¹ wolne miejsca do wstawienia kolejnych kulek
+	Board();												//konstruktor planszy
+	void draw();											//wyrysowanie planszy
+	void is_mouse_over();									//funkcja wywo³uj¹ca funkcjê is_mouse_over dla pola planszy
+	~Board();												//destruktor planszy - usuwa wektor wektorów wskaŸników na pola planszy
+	bool is_full();											//funkcja realizuj¹ca sprawdzenie czy s¹ wolne miejsca do wstawienia kolejnych kulek
+	void add_ball_to_board(std::vector<Ball*> & new_balls);	//funkcja realizuj¹ca dodawanie nowych kulek na planszê
 };
