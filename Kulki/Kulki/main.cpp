@@ -134,15 +134,26 @@ int main()
 		al_wait_for_event(event_queue, &event);
 		pola_planszy.draw();			//wyrysowanie planszy
 		al_get_mouse_state(&mouse);
-		if (al_mouse_button_down(&mouse, 1))
+		bool clicked_button = false;
+		//wywo³anie akcji zwi¹zanych z przyciskami
+		for (int i = 0; i < 3; i++)
 		{
-			new_balls = balls;				//przepisanie kulek do wektora kulek do wyrysowania na planszy
-			balls.clear();					//usuniêcie nadchodz¹cych kulek
-			pola_planszy.add_ball_to_board(new_balls);	//dodanie kulek z wektora kulek do wyrysowania na planszy do planszy
-			losuj_kulki(balls);				//wylosowanie nowych nadchodz¹cych kulek
-			for (int i = 0; i < 3; i++)
-				balls[i]->draw();			//wyrysowanie nadchodz¹cych kulek
-			new_balls.clear();				//usuniêcie wektora kulek do wyrysowania na planszy
+			clicked_button = vector_of_buttons[i]->is_mouse_clicked(end);
+			if (clicked_button)
+				i = 3;
+		}
+		if (!clicked_button)
+		{
+			if (al_mouse_button_down(&mouse, 1))
+			{
+				new_balls = balls;				//przepisanie kulek do wektora kulek do wyrysowania na planszy
+				balls.clear();					//usuniêcie nadchodz¹cych kulek
+				pola_planszy.add_ball_to_board(new_balls);	//dodanie kulek z wektora kulek do wyrysowania na planszy do planszy
+				losuj_kulki(balls);				//wylosowanie nowych nadchodz¹cych kulek
+				for (int i = 0; i < 3; i++)
+					balls[i]->draw();			//wyrysowanie nadchodz¹cych kulek
+				new_balls.clear();				//usuniêcie wektora kulek do wyrysowania na planszy
+			}
 		}
 		if (pola_planszy.is_full())
 			end = true;

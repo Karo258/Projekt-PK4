@@ -18,7 +18,6 @@ class Button : public GUIObject	//klasa przycisk, zawieraj¹ca funkcjonalnoœci dl
 public:
 	Button(int x, int y, const char* file); //konstruktor przycisku
 	void draw(); //funkcja realizuj¹ca wyrysowanie obiektu przycisk
-	bool is_mouse_over(); //funkjca realizuj¹ca zmianê koloru przycisku, po najechaniu na niego mysz¹
 	bool is_mouse_clicked(bool &status); //funkcja realizuj¹ca wykonanie okreœlonej akcji po klikniêciu przycisku
 };
 

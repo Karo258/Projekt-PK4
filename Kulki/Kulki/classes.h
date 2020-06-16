@@ -32,7 +32,6 @@ protected:
 public:
 	Field();
 	Field(int x, int y);			//konstruktor obiektu pola
-	bool is_mouse_over();			//funkjca realizuj¹ca zmianê koloru pola, po najechaniu na nie mysz¹
 	void draw();					//funkcja realizuj¹ca wyrysowanie obiektu pola
 	void set_full();				//funkcja ustawiaj¹ca pole is_ball na wartoœæ true
 	bool is_full();					//funkcja zwracaj¹ca informacjê o tym, czy pole is_ball ma wartoœæ true
@@ -48,7 +47,6 @@ protected:
 public:
 	Board();												//konstruktor planszy
 	void draw();											//wyrysowanie planszy
-	void is_mouse_over();									//funkcja wywo³uj¹ca funkcjê is_mouse_over dla pola planszy
 	~Board();												//destruktor planszy - usuwa wektor wektorów wskaŸników na pola planszy
 	bool is_full();											//funkcja realizuj¹ca sprawdzenie czy s¹ wolne miejsca do wstawienia kolejnych kulek
 	void add_ball_to_board(std::vector<Ball*> & new_balls);	//funkcja realizuj¹ca dodawanie nowych kulek na planszê
