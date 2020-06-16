@@ -43,6 +43,39 @@ void Field::set_ball(Ball * added_ball)
 	this->fields_ball = added_ball;
 }
 
+Ball * Field::get_ball()
+{
+	return this->fields_ball;
+}
+
+Field * Field::is_mouse_clicked()
+{
+	ALLEGRO_MOUSE_STATE state;
+	al_get_mouse_state(&state);
+	if ((state.x >= x_begin) && (state.x <= x_begin + 70) && (state.y >= y_begin) && (state.y <= y_begin + 70))
+	{
+		if (al_mouse_button_down(&state, 1))
+		{
+			return this;
+		}
+	}
+}
+
+int Field::get_x()
+{
+	return this->x_begin;
+}
+
+int Field::get_y()
+{
+	return this->y_begin;
+}
+
+void Field::set_empty()
+{
+	this->is_ball = false;
+}
+
 Ball::Ball(int x, int y, ALLEGRO_COLOR c, int r)
 {
 	this->x_begin = x;
@@ -117,5 +150,40 @@ void Board::add_ball_to_board(std::vector<Ball*> & new_balls)
 		new_balls[i]->change_coordinates(105 + (row * 70), 105 + (column) * 70, 20);
 		board[row][column]->set_ball(new_balls[i]);
 		board[row][column]->set_full();
+	}
+}
+
+void Board::swap(int& x1, int& y1, int& x2, int& y2)
+{
+	bool is_there_ball1 = false;
+	bool is_there_ball2 = true;
+	int row1, column1, row2, column2;
+	Ball* tmp;
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			if (x1 == board[i][j]->get_x() && y1 == board[i][j]->get_y())
+			{
+				is_there_ball1 = board[i][j]->is_full();
+				row1 = i;
+				column1 = j;
+			}
+			if (x2 == board[i][j]->get_x() && y2 == board[i][j]->get_y())
+			{
+				is_there_ball2 = board[i][j]->is_full();
+				row2 = i;
+				column2 = j;
+			}
+		}
+	}
+	if ((is_there_ball1) && (!is_there_ball2))
+	{
+		tmp = board[row1][column1]->get_ball();
+		tmp->change_coordinates(105 + (row2 * 70), 105 + (column2 * 70), 20);
+		board[row2][column2]->set_ball(tmp);
+		board[row2][column2]->set_full();
+		board[row1][column1]->set_ball(nullptr);
+		board[row1][column1]->set_empty();
 	}
 }

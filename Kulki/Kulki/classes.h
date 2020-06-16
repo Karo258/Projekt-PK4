@@ -36,6 +36,11 @@ public:
 	void set_full();				//funkcja ustawiaj¹ca pole is_ball na wartoœæ true
 	bool is_full();					//funkcja zwracaj¹ca informacjê o tym, czy pole is_ball ma wartoœæ true
 	void set_ball(Ball* added_ball);//funkcja realizuj¹ca dodawanie kulki do pola
+	Ball* get_ball();				//funkcja zwracaj¹ca kulkê pola
+	Field* is_mouse_clicked();		//funkcja zwracaj¹ca pole, które zosta³o klikniête
+	int get_x();					//zwracanie x
+	int get_y();					//zwracanie y
+	void set_empty();				//
 };
 
 //II poziom dziedziczenia
@@ -50,4 +55,5 @@ public:
 	~Board();												//destruktor planszy - usuwa wektor wektorów wskaŸników na pola planszy
 	bool is_full();											//funkcja realizuj¹ca sprawdzenie czy s¹ wolne miejsca do wstawienia kolejnych kulek
 	void add_ball_to_board(std::vector<Ball*> & new_balls);	//funkcja realizuj¹ca dodawanie nowych kulek na planszê
+	void swap(int& x1, int& y1, int& x2, int& y2);				//
 };

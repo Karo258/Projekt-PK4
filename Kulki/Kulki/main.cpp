@@ -127,8 +127,16 @@ int main()
 	for (int i = 0; i < vector_of_buttons.size(); i++)
 		vector_of_buttons[i]->draw();
 
+	new_balls = balls;
+	pola_planszy.add_ball_to_board(new_balls);
+	balls.clear();
+	losuj_kulki(balls);
+	for (int i = 0; i < 3; i++)
+		balls[i]->draw();
+
 	bool end = false; //zmienna lokalna przechowuj¹ca warunek g³ównej pêtli programu
 	srand(time(NULL));
+	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 	while (!end) //g³ówna pêtla programu
 	{
 		al_wait_for_event(event_queue, &event);
@@ -142,9 +150,10 @@ int main()
 			if (clicked_button)
 				i = 3;
 		}
+		
 		if (!clicked_button)
 		{
-			if (al_mouse_button_down(&mouse, 1))
+			if (al_mouse_button_down(&mouse, 2))
 			{
 				new_balls = balls;				//przepisanie kulek do wektora kulek do wyrysowania na planszy
 				balls.clear();					//usuniêcie nadchodz¹cych kulek
@@ -154,7 +163,27 @@ int main()
 					balls[i]->draw();			//wyrysowanie nadchodz¹cych kulek
 				new_balls.clear();				//usuniêcie wektora kulek do wyrysowania na planszy
 			}
+			
+			if (al_mouse_button_down(&mouse, 1))
+			{
+				if ((mouse.x > 70 && mouse.x<630 && mouse.y > 70 && mouse.y<630))
+				{
+					x1 = mouse.x - (mouse.x % 70);
+					y1 = mouse.y - (mouse.y % 70);
+				}
+			}
+			if (al_mouse_button_down(&mouse, 2))
+			{
+				if ((mouse.x > 70 && mouse.x < 630 && mouse.y > 70 && mouse.y < 630))
+				{
+					x2 = mouse.x - (mouse.x % 70);
+					y2 = mouse.y - (mouse.y % 70);
+				}
+				
+			}
+			pola_planszy.swap(x1, y1, x2, y2);
 		}
+
 		if (pola_planszy.is_full())
 			end = true;
 		al_flip_display();
