@@ -1,23 +1,9 @@
-﻿  classes.cpp
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\classes.cpp(142): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+﻿  main.cpp
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(127): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
 c:\users\karolina\desktop\projekt-pk4\kulki\kulki\functions.h(11): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\classes.cpp(123): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Field*>(std::vector<Field *,std::allocator<_Ty>> &)” jest kompilowane
-          with
-          [
-              _Ty=Field *
-          ]
-  main.cpp
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(119): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(130): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(134): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(142): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(150): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(161): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\functions.h(11): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(222): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
+  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(184): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
           with
           [
               _Ty=Button *
           ]
-  Generowanie kodu...
   Kulki.vcxproj -> C:\Users\Karolina\Desktop\Projekt-PK4\Kulki\Debug\Kulki.exe

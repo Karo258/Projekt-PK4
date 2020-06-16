@@ -37,8 +37,8 @@ bool Field::is_mouse_over()
 }
 
 void Field::draw()
-{	
-	al_draw_line(x_begin, y_begin, x_begin + 70, y_begin,al_map_rgb(0,0,0),1);
+{
+	al_draw_line(x_begin, y_begin, x_begin + 70, y_begin, al_map_rgb(0, 0, 0), 1);
 	al_draw_line(x_begin, y_begin, x_begin, y_begin + 70, al_map_rgb(0, 0, 0), 1);
 	al_draw_filled_rectangle(x_begin, y_begin, x_begin + 70, y_begin + 70, al_map_rgb(195, 195, 195));
 	if (is_ball)
@@ -152,4 +152,3 @@ void Board::add_ball_to_board(std::vector<Ball*> & new_balls)
 		board[row][column]->set_full();
 	}
 }
-

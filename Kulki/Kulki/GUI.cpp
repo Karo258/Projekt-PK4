@@ -25,7 +25,7 @@ bool Button::is_mouse_over()
 {
 	ALLEGRO_MOUSE_STATE state;
 	al_get_mouse_state(&state);
-	if ((state.x >= x_begin) && (state.x <= x_begin+188) && (state.y >= y_begin) && (state.y <= y_begin +135))
+	if ((state.x >= x_begin) && (state.x <= x_begin + 188) && (state.y >= y_begin) && (state.y <= y_begin + 135))
 	{
 		if (y_begin == 85)
 		{
@@ -99,5 +99,5 @@ TextField::TextField(int x, int y)
 
 void TextField::draw()
 {
-	al_draw_filled_rectangle(x_begin, y_begin, x_begin + 370, y_begin + 135, al_map_rgb(195,195,195));
+	al_draw_filled_rectangle(x_begin, y_begin, x_begin + 370, y_begin + 135, al_map_rgb(195, 195, 195));
 }

@@ -43,10 +43,10 @@ int main()
 	al_init_ttf_addon();
 
 	ALLEGRO_DISPLAY * main_display = al_create_display(1280, 720);	//utworzenie okna gry
-	al_set_window_title(main_display, "KULKI"); //zatytu³owanie okna gry
-	al_clear_to_color(al_map_rgb(30, 110, 125)); //ustawienie koloru t³a okna gry
+	al_set_window_title(main_display, "KULKI");						//zatytu³owanie okna gry
+	al_clear_to_color(al_map_rgb(30, 110, 125));					//ustawienie koloru t³a okna gry
 
-	
+
 	try //obs³uga b³êdu zwi¹zanego z brakiem mo¿liwoœci instalacji myszy
 	{
 		if (!al_install_mouse())	//instalacja myszy
@@ -60,9 +60,9 @@ int main()
 		error.message();
 		return -1;
 	}
+
 	//utworzenie kursora myszy
 	ALLEGRO_MOUSE_STATE mouse;
-	al_get_mouse_state(&mouse);
 	al_set_system_mouse_cursor(main_display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
 	al_show_mouse_cursor(main_display);
 
@@ -70,16 +70,17 @@ int main()
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	event_queue = al_create_event_queue();
 	al_register_event_source(event_queue, al_get_display_event_source(main_display));	//ustawienie okna gry jako Ÿród³a zdarzeñ
-	al_register_event_source(event_queue, al_get_mouse_event_source());	//ustawienie myszy jako Ÿród³a zdarzeñ
+	al_register_event_source(event_queue, al_get_mouse_event_source());					//ustawienie myszy jako Ÿród³a zdarzeñ
+	ALLEGRO_EVENT event;
 
 	//utworzenie czcionek
-	ALLEGRO_FONT* ttf_font = al_load_ttf_font("arial.ttf", 24, 0);	//o wielkoœci 24
-	ALLEGRO_FONT* middle_ttf_font = al_load_ttf_font("arial.ttf", 64, 0); //o wielkoœci 64
-	ALLEGRO_FONT* big_ttf_font = al_load_ttf_font("arial.ttf", 128, 0); // o wielkoœci 128
+	ALLEGRO_FONT* ttf_font = al_load_ttf_font("arial.ttf", 24, 0);			//o wielkoœci 24
+	ALLEGRO_FONT* middle_ttf_font = al_load_ttf_font("arial.ttf", 64, 0);	//o wielkoœci 64
+	ALLEGRO_FONT* big_ttf_font = al_load_ttf_font("arial.ttf", 128, 0);		// o wielkoœci 128
 
 	//utworzenie wektora przycisków
 	std::vector<Button*> vector_of_buttons;
-	vector_of_buttons.push_back(new Button(650, 85, "NG_normal.png")); 
+	vector_of_buttons.push_back(new Button(650, 85, "NG_normal.png"));
 	vector_of_buttons.push_back(new Button(650, 287, "RESET_normal.png"));
 	vector_of_buttons.push_back(new Button(650, 485, "EG_normal.png"));
 
@@ -103,102 +104,62 @@ int main()
 	//wynik na pocz¹tku dzia³ania programu
 	const char* twoj_wynik = "0 0 0";
 	al_draw_text(big_ttf_font, al_map_rgb(0, 0, 0), 890, 280, 0, twoj_wynik);
-	
+
 	//utworzenie jednokierunkowej listy wyników
 	lista* score_list = new lista();
 
 	//wczytanie wyników z pliku do listy jednokierukowej
 	read_from_file("tabela_wynikow.txt", score_list);
-	char* najwyzszy_wynik = new char[score_list->pierwszy_element().length()+1];
+	char* najwyzszy_wynik = new char[score_list->pierwszy_element().length() + 1];
 	std::strcpy(najwyzszy_wynik, score_list->pierwszy_element().c_str());
 	al_draw_text(big_ttf_font, al_map_rgb(0, 0, 0), 890, 480, 0, najwyzszy_wynik);
-	
+
 	//stworzenie wektora nadchodz¹cych kulek
 	std::vector<Ball*> balls;
-	losuj_kulki(balls);
-	for (int i = 0; i < balls.size(); i++)
-		balls[i]->draw();
+	losuj_kulki(balls);			//wywo³anie funkcji losuj¹cej 3 kulki
+	for (int i = 0; i < 3; i++)
+		balls[i]->draw();		//wyrysowanie nadchodz¹cych kulek
 
 	//stworzenie wektora kulek z poprzedniej rundy
 	std::vector<Ball*> new_balls;
+
+	//wyrysowanie przycisków
+	for (int i = 0; i < vector_of_buttons.size(); i++)
+		vector_of_buttons[i]->draw();
 
 	bool end = false; //zmienna lokalna przechowuj¹ca warunek g³ównej pêtli programu
 	srand(time(NULL));
 	while (!end) //g³ówna pêtla programu
 	{
-		//wyrysowanie przycisków
-		for (int i = 0; i < vector_of_buttons.size(); i++)
-			vector_of_buttons[i]->draw();
-
-		//zmiana przycisku po najechaniu na niego mysz¹
-		for (int i = 0; i < vector_of_buttons.size(); i++)
+		al_wait_for_event(event_queue, &event);
+		pola_planszy.draw();			//wyrysowanie planszy
+		al_get_mouse_state(&mouse);
+		if (al_mouse_button_down(&mouse, 1))
 		{
-			bool covered = vector_of_buttons[i]->is_mouse_over();
-			if (covered == true)
-				i = vector_of_buttons.size();
+			new_balls = balls;				//przepisanie kulek do wektora kulek do wyrysowania na planszy
+			balls.clear();					//usuniêcie nadchodz¹cych kulek
+			pola_planszy.add_ball_to_board(new_balls);	//dodanie kulek z wektora kulek do wyrysowania na planszy do planszy
+			losuj_kulki(balls);				//wylosowanie nowych nadchodz¹cych kulek
+			for (int i = 0; i < 3; i++)
+				balls[i]->draw();			//wyrysowanie nadchodz¹cych kulek
+			new_balls.clear();				//usuniêcie wektora kulek do wyrysowania na planszy
 		}
-
-		//wywo³anie akcji zwi¹zanych z przyciskami
-		for (int i = 0; i < vector_of_buttons.size(); i++)
-		{
-			bool  clicked = vector_of_buttons[i]->is_mouse_clicked(end);
-			if (clicked)
-				i = vector_of_buttons.size();
-		}
-
-		//przepisanie poprzednio wylosowanych kulek do nowego wektora
-		for (int i = 0; i < balls.size(); i++)
-			new_balls.push_back(balls[i]);
-
-		//usuniêcie elementów wektora przechowuj¹cego nadchodzace kulki
-		for (int i = balls.size(); i > 0; i--)
-			balls.pop_back();
-
-		//losowanie kulek do kolejnej rundy
-		losuj_kulki(balls);
-
-		//wyrysowanie nadchodz¹cych kulek
-		for (int i = 0; i < balls.size(); i++)
-			balls[i]->draw();
-
-		//dodanie kulek do pól planszy
-		pola_planszy.add_ball_to_board(new_balls);
-
-		//wyrysowanie planszy i znajduj¹cych siê na niej kulek
-		pola_planszy.draw();
-
-		//zmiana pola planszy po najechaniu na nie mysz¹
-		pola_planszy.is_mouse_over();
-
-		//pêtla do przestawiania kulek
-		bool moved = false;
-		while (!moved)
-		{
-
-			moved = true;
-		}
-
-		al_flip_display();
-
-		//usuniecie elementow wektora przechowuj¹cego aktualne kulki
-		for (int i = new_balls.size(); i > 0; i--)
-			new_balls.pop_back();
-
-		//zakoñczenie gry, gdy na planszy znajêtych bêdzie wiêcej ni¿ 61 pól - brak mo¿liwoœci wstawienia kolejnych kulek
 		if (pola_planszy.is_full())
 			end = true;
+		al_flip_display();
 	}
 
 	//pêtla do wykonywania wszystkich opcji po zakoñczeniu gry oraz wypisywania wyników
 	bool definitive_end = false;
 	while (!definitive_end)
 	{
-		al_clear_to_color(al_map_rgb(30, 110, 125));
-		//wypisywanie tablicy wyników
-		al_draw_filled_rounded_rectangle(290, 10, 990, 710, 20, 20, al_map_rgb(195,195,195));
-		al_draw_text(middle_ttf_font, al_map_rgb(0, 0, 0), 295, 45, 0, "WYNIKI:");
+		al_clear_to_color(al_map_rgb(30, 110, 125));	//ustawienie koloru t³a 
+		al_draw_filled_rounded_rectangle(290, 10, 990, 710, 20, 20, al_map_rgb(195, 195, 195));	//utworzenie t³a dla tablicy wyników
+		al_draw_text(middle_ttf_font, al_map_rgb(0, 0, 0), 295, 45, 0, "WYNIKI:");	
 		int x_pocz = 295;
 		int y_pocz = 115;
+
+		//wypisywanie tablicy wyników
 		for (int i = 0; i < 8; i++)
 		{
 			char* wynik = new char[score_list->wypisz_element(i).length() + 1];
@@ -207,10 +168,10 @@ int main()
 			y_pocz += 70;
 		}
 
-		ALLEGRO_EVENT event;	//utworzenie zdarzenia
+		//utworzenie zdarzenia
 		al_wait_for_event(event_queue, &event);	//oczekiwanie na zdarzenie
-
-		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)	//zamykanie okna gry za pomoc¹ przycisku "X" w prawym górnym rogu okna
+		// zamykanie okna gry za pomoc¹ przycisku "X" w prawym górnym rogu okna
+		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			definitive_end = true;
 		al_flip_display();
 	}
@@ -224,7 +185,7 @@ int main()
 
 	//usuniêcie wektora wektorów pól planszy
 	pola_planszy.~Board();
-	
+
 	al_destroy_font(ttf_font); //usuniêcie czcionki o wielkoœci 24
 	al_destroy_font(big_ttf_font); //usuniêcie czcionki o wielkoœci 128
 	al_destroy_event_queue(event_queue); //usuniêcie kolejki zdarzeñ
