@@ -1,7 +1,7 @@
 ﻿  main.cpp
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(126): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(125): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
 c:\users\karolina\desktop\projekt-pk4\kulki\kulki\functions.h(13): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(238): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
+  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(242): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
           with
           [
               _Ty=Button *

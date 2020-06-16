@@ -80,9 +80,8 @@ int main()
 
 	//utworzenie wektora przycisków
 	std::vector<Button*> vector_of_buttons;
-	vector_of_buttons.push_back(new Button(650, 85, "NG_normal.png"));
-	vector_of_buttons.push_back(new Button(650, 287, "RESET_normal.png"));
-	vector_of_buttons.push_back(new Button(650, 485, "EG_normal.png"));
+	vector_of_buttons.push_back(new Button(650, 200, "NG_normal.png"));
+	vector_of_buttons.push_back(new Button(650, 350, "EG_normal.png"));
 
 	//utworzenia pola, na którym bêd¹ siê pojawia³y nadchodz¹ce kulki
 	al_draw_text(ttf_font, al_map_rgb(195, 195, 195), 850, 50, 0, "KOLEJNE KULKI");
@@ -133,10 +132,6 @@ int main()
 	for (int i = 0; i < 3; i++)
 		balls[i]->draw();
 
-	al_install_keyboard();
-	ALLEGRO_KEYBOARD_STATE k_board;
-	al_register_event_source(event_queue, al_get_keyboard_event_source());
-
 	bool end = false; //zmienna lokalna przechowuj¹ca warunek g³ównej pêtli programu
 	srand(time(NULL));
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
@@ -146,52 +141,61 @@ int main()
 		al_wait_for_event(event_queue, &event);
 		pola_planszy.draw();			//wyrysowanie planszy
 		al_get_mouse_state(&mouse);
-		al_get_keyboard_state(&k_board);
-		bool clicked_button = false;
 		//wywo³anie akcji zwi¹zanych z przyciskami
-		for (int i = 0; i < 3; i++)
+		if (al_mouse_button_down(&mouse, 1))
 		{
-			clicked_button = vector_of_buttons[i]->is_mouse_clicked(end);
-			if (clicked_button)
-				i = 3;
+			if (mouse.x >= 650 && mouse.x <= 838 && mouse.y >= 200 && mouse.y <= 335)
+			{
+				pola_planszy.~Board();
+				pola_planszy = Board();
+				wynik = 0;
+				new_balls = balls;
+				pola_planszy.add_ball_to_board(new_balls);
+				balls.clear();
+				losuj_kulki(balls);
+				for (int i = 0; i < 3; i++)
+					balls[i]->draw();
+			}
+			else if (mouse.x >= 650 && mouse.x <= 838 && mouse.y >= 350 && mouse.y <= 485)
+			{
+				end = true;
+			}
 		}
 		
-		if (!clicked_button)
+		if (al_mouse_button_down(&mouse, 2))
 		{
-			if (al_mouse_button_down(&mouse, 2)/*al_key_down(&k_board, ALLEGRO_KEY_SPACE)*/)
-			{
-				new_balls = balls;				//przepisanie kulek do wektora kulek do wyrysowania na planszy
-				balls.clear();					//usuniêcie nadchodz¹cych kulek
-				pola_planszy.add_ball_to_board(new_balls);	//dodanie kulek z wektora kulek do wyrysowania na planszy do planszy
-				losuj_kulki(balls);				//wylosowanie nowych nadchodz¹cych kulek
-				for (int i = 0; i < 3; i++)
-					balls[i]->draw();			//wyrysowanie nadchodz¹cych kulek
-				new_balls.clear();				//usuniêcie wektora kulek do wyrysowania na planszy
-			}
-			
-			al_get_mouse_state(&mouse);
-			if (al_mouse_button_down(&mouse, 1))
-			{
-				if ((mouse.x > 70 && mouse.x<630 && mouse.y > 70 && mouse.y<630))
-				{
-					x1 = mouse.x - (mouse.x % 70);
-					y1 = mouse.y - (mouse.y % 70);
-				}
-			}
-
-			al_get_mouse_state(&mouse);
-			if (al_mouse_button_down(&mouse, 2))
-			{
-				if ((mouse.x > 70 && mouse.x < 630 && mouse.y > 70 && mouse.y < 630))
-				{
-					x2 = mouse.x - (mouse.x % 70);
-					y2 = mouse.y - (mouse.y % 70);
-				}
-				
-			}
-			pola_planszy.swap(x1, y1, x2, y2);
-			pola_planszy.deleting(wynik, counter);
+			new_balls = balls;				//przepisanie kulek do wektora kulek do wyrysowania na planszy
+			balls.clear();					//usuniêcie nadchodz¹cych kulek
+			pola_planszy.add_ball_to_board(new_balls);	//dodanie kulek z wektora kulek do wyrysowania na planszy do planszy
+			losuj_kulki(balls);				//wylosowanie nowych nadchodz¹cych kulek
+			for (int i = 0; i < 3; i++)
+				balls[i]->draw();			//wyrysowanie nadchodz¹cych kulek
+			new_balls.clear();				//usuniêcie wektora kulek do wyrysowania na planszy
 		}
+			
+		al_get_mouse_state(&mouse);
+		if (al_mouse_button_down(&mouse, 1))
+		{
+			if ((mouse.x > 70 && mouse.x<630 && mouse.y > 70 && mouse.y<630))
+			{
+				x1 = mouse.x - (mouse.x % 70);
+				y1 = mouse.y - (mouse.y % 70);
+			}
+		}
+
+		al_get_mouse_state(&mouse);
+		if (al_mouse_button_down(&mouse, 2))
+		{
+			if ((mouse.x > 70 && mouse.x < 630 && mouse.y > 70 && mouse.y < 630))
+			{
+				x2 = mouse.x - (mouse.x % 70);
+				y2 = mouse.y - (mouse.y % 70);
+			}
+				
+		}
+		pola_planszy.swap(x1, y1, x2, y2);
+		pola_planszy.deleting(wynik, counter);
+
 		
 		aktualny_wynik.draw();
 		al_draw_text(big_ttf_font, al_map_rgb(0, 0, 0), 890, 280, 0, (std::to_string(wynik)).c_str());

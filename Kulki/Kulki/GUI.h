@@ -18,7 +18,6 @@ class Button : public GUIObject	//klasa przycisk, zawieraj¹ca funkcjonalnoœci dl
 public:
 	Button(int x, int y, const char* file); //konstruktor przycisku
 	void draw(); //funkcja realizuj¹ca wyrysowanie obiektu przycisk
-	bool is_mouse_clicked(bool &status); //funkcja realizuj¹ca wykonanie okreœlonej akcji po klikniêciu przycisku
 };
 
 class CommingBalls : public GUIObject //klasa nadchodz¹ce kulki, zawieraj¹ca funkcjonalnoœci dla pola, na którym wyœwietlane bêd¹ nadchodz¹ce kulki

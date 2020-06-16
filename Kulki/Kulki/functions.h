@@ -14,14 +14,5 @@ void delete_vector(std::vector<T>& wektor)	//funkcja realizuj¹ca usuwanie z wekt
 		delete wektor[i];
 }
 
-//funkjca realizuj¹ca akcje zwi¹zane z rozpoczêciem nowej gry
-void new_game();
-
-//funkcja realizuj¹ca akcje zwi¹zane z restartem gry
-void reset(); 
-
-//funkcja realizuj¹ca akcje zwi¹zane z zakoñczeniem gry
-void end_game(bool &status);
-
 //funkcja realizuj¹ca losowanie nadchodz¹cych kulek
 void losuj_kulki(std::vector<Ball*> & wektor);
