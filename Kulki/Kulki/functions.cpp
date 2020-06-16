@@ -4,6 +4,13 @@
 
 #include "functions.h"
 
+bool operator==(const ALLEGRO_COLOR & c, const ALLEGRO_COLOR & c2)
+{
+	if (c.r == c2.r && c.g == c2.g && c.b == c2.b)
+		return true;
+	return false;
+}
+
 void new_game()
 {
 	std::cout << "NEW GAME" << std::endl;

@@ -134,14 +134,21 @@ int main()
 	for (int i = 0; i < 3; i++)
 		balls[i]->draw();
 
+	al_install_keyboard();
+	ALLEGRO_KEYBOARD_STATE k_board;
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
+
 	bool end = false; //zmienna lokalna przechowuj¹ca warunek g³ównej pêtli programu
 	srand(time(NULL));
+	int s = 0;
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+	int counter = 1;
 	while (!end) //g³ówna pêtla programu
 	{
 		al_wait_for_event(event_queue, &event);
 		pola_planszy.draw();			//wyrysowanie planszy
 		al_get_mouse_state(&mouse);
+		al_get_keyboard_state(&k_board);
 		bool clicked_button = false;
 		//wywo³anie akcji zwi¹zanych z przyciskami
 		for (int i = 0; i < 3; i++)
@@ -153,7 +160,7 @@ int main()
 		
 		if (!clicked_button)
 		{
-			if (al_mouse_button_down(&mouse, 2))
+			if (al_mouse_button_down(&mouse, 2)/*al_key_down(&k_board, ALLEGRO_KEY_SPACE)*/)
 			{
 				new_balls = balls;				//przepisanie kulek do wektora kulek do wyrysowania na planszy
 				balls.clear();					//usuniêcie nadchodz¹cych kulek
@@ -164,6 +171,8 @@ int main()
 				new_balls.clear();				//usuniêcie wektora kulek do wyrysowania na planszy
 			}
 			
+			//al_wait_for_event(event_queue, &event);
+			al_get_mouse_state(&mouse);
 			if (al_mouse_button_down(&mouse, 1))
 			{
 				if ((mouse.x > 70 && mouse.x<630 && mouse.y > 70 && mouse.y<630))
@@ -172,6 +181,7 @@ int main()
 					y1 = mouse.y - (mouse.y % 70);
 				}
 			}
+			al_get_mouse_state(&mouse);
 			if (al_mouse_button_down(&mouse, 2))
 			{
 				if ((mouse.x > 70 && mouse.x < 630 && mouse.y > 70 && mouse.y < 630))
@@ -182,8 +192,9 @@ int main()
 				
 			}
 			pola_planszy.swap(x1, y1, x2, y2);
+			pola_planszy.deleting(s, counter);
 		}
-
+		
 		if (pola_planszy.is_full())
 			end = true;
 		al_flip_display();

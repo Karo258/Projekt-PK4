@@ -4,6 +4,8 @@
 
 #include "classes.h"
 
+bool operator==(const ALLEGRO_COLOR & c, const ALLEGRO_COLOR & c2);
+
 //funkcja jest funkcj¹ inline, poniewa¿ tylko taka funkcja mo¿e byæ funkcj¹ szablonow¹
 template <class T>
 void delete_vector(std::vector<T>& wektor)	//funkcja realizuj¹ca usuwanie z wektora

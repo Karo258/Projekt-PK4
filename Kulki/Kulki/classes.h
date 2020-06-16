@@ -22,6 +22,7 @@ public:
 	Ball(int x, int y, ALLEGRO_COLOR c, int r);		//konstruktor obiektu kulki
 	void draw();									//funkcja realizuj¹ca wyrysowanie obiektu kulki
 	void change_coordinates(int x, int y, int r);	//metoda realizuj¹ca zmianê wspó³rzêdnych po³o¿enia kulki (w celu jej wyœwietlenia na odpowiednim polu planszy)
+	ALLEGRO_COLOR get_color();						//metoda zwracaj¹ca kolor kulki
 };
 
 class Field : public GraphicalObject //klasa pole gry, zawieraj¹ca funkcjonalnoœci dla pojedynczego pola planszy
@@ -55,5 +56,6 @@ public:
 	~Board();												//destruktor planszy - usuwa wektor wektorów wskaŸników na pola planszy
 	bool is_full();											//funkcja realizuj¹ca sprawdzenie czy s¹ wolne miejsca do wstawienia kolejnych kulek
 	void add_ball_to_board(std::vector<Ball*> & new_balls);	//funkcja realizuj¹ca dodawanie nowych kulek na planszê
-	void swap(int& x1, int& y1, int& x2, int& y2);				//
+	void swap(int& x1, int& y1, int& x2, int& y2);			//
+	void deleting(int& wynik, int& counter);								//
 };

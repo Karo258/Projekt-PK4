@@ -7,6 +7,8 @@
 #include "classes.h"
 #include "functions.h"
 
+
+
 Field::Field()
 {
 }
@@ -94,6 +96,11 @@ void Ball::change_coordinates(int x, int y, int r)
 	this->x_begin = x;
 	this->y_begin = y;
 	this->radius = r;
+}
+
+ALLEGRO_COLOR Ball::get_color()
+{
+	return this->color;
 }
 
 Board::Board()
@@ -185,5 +192,43 @@ void Board::swap(int& x1, int& y1, int& x2, int& y2)
 		board[row2][column2]->set_full();
 		board[row1][column1]->set_ball(nullptr);
 		board[row1][column1]->set_empty();
+	}
+}
+
+void Board::deleting(int & wynik, int& counter)
+{
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size-1; j++)
+		{
+			if (board[i][j]->is_full() && board[i][j+1]->is_full())
+			{
+				if (board[i][j]->get_ball()->get_color() == board[i][j + 1]->get_ball()->get_color())
+				{
+					counter++;
+				}
+				else
+				{
+					counter = 1;
+				}
+
+				if (counter > 4)
+				{
+					int tmp = j+1;
+					for (int k = counter+1; k >= 0; k--)
+					{
+						if (tmp >= 0)
+						{
+							board[i][tmp]->set_ball(nullptr);
+							board[i][tmp]->set_empty();
+							wynik++;
+							tmp--;
+						}
+					}	
+				}
+				std::cout << counter << std::endl;
+			}	
+		}
+		counter = 1;
 	}
 }
