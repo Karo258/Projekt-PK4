@@ -204,14 +204,9 @@ void Board::deleting(int & wynik, int& counter)
 			if (board[i][j]->is_full() && board[i][j+1]->is_full())
 			{
 				if (board[i][j]->get_ball()->get_color() == board[i][j + 1]->get_ball()->get_color())
-				{
 					counter++;
-				}
 				else
-				{
 					counter = 1;
-				}
-
 				if (counter > 4)
 				{
 					int tmp = j+1;
@@ -226,8 +221,36 @@ void Board::deleting(int & wynik, int& counter)
 						}
 					}	
 				}
-				std::cout << counter << std::endl;
 			}	
+		}
+		counter = 1;
+	}
+
+	for (int j = 0; j < size; j++)
+	{
+		for (int i = 0; i < size - 1; i++)
+		{
+			if (board[i][j]->is_full() && board[i+1][j]->is_full())
+			{
+				if (board[i][j]->get_ball()->get_color() == board[i + 1][j]->get_ball()->get_color())
+					counter++;
+				else
+					counter = 1;
+				if (counter > 4)
+				{
+					int tmp = i+1;
+					for (int k = counter + 1; k >= 0; k--)
+					{
+						if (tmp >= 0)
+						{
+							board[tmp][j]->set_ball(nullptr);
+							board[tmp][j]->set_empty();
+							wynik++;
+							tmp--;
+						}
+					}
+				}
+			}
 		}
 		counter = 1;
 	}

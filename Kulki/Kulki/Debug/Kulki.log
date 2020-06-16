@@ -1,9 +1,10 @@
-﻿  main.cpp
-c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(127): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+﻿  classes.cpp
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\classes.cpp(148): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
 c:\users\karolina\desktop\projekt-pk4\kulki\kulki\functions.h(13): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\main.cpp(235): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Button*>(std::vector<Button *,std::allocator<_Ty>> &)” jest kompilowane
+  c:\users\karolina\desktop\projekt-pk4\kulki\kulki\classes.cpp(130): note: zobacz odwołanie do funkcji szablon; wystąpienie „void delete_vector<Field*>(std::vector<Field *,std::allocator<_Ty>> &)” jest kompilowane
           with
           [
-              _Ty=Button *
+              _Ty=Field *
           ]
+c:\users\karolina\desktop\projekt-pk4\kulki\kulki\classes.cpp(64): warning C4715: "Field::is_mouse_clicked”: niewszystkie ścieżki kodu zwracają wartość
   Kulki.vcxproj -> C:\Users\Karolina\Desktop\Projekt-PK4\Kulki\Debug\Kulki.exe
