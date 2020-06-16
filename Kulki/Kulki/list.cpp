@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void lista::dodaj_na_koniec(std::string liczba_punktow)
+void lista::dodaj_na_koniec(int liczba_punktow)
 {
     auto TMP = std::make_shared<element_listy>(liczba_punktow);
     if (!pHead)
@@ -51,7 +51,7 @@ void lista::wypisanie_listy()
 
 std::string lista::pierwszy_element()
 {
-	return pHead->wynik;
+	return std::to_string(pHead->wynik);
 }
 
 std::string lista::wypisz_element(int numer_elementu)
@@ -59,6 +59,31 @@ std::string lista::wypisz_element(int numer_elementu)
     auto tmp = pHead;
     for (int i = 0; i < numer_elementu; i++)
        tmp = tmp->pNext;
-    return tmp->wynik;
+    return std::to_string(tmp->wynik);
+}
+
+void lista::dodaj_w_odpowiednim_miejscu(int wynik)
+{
+	auto tmp = std::make_shared<element_listy>(wynik);
+	auto current = std::move(tmp);
+	if (!pHead || pHead->wynik < wynik) {
+		current->pNext = pHead;
+		pHead = current;
+		return;
+	}
+	else {
+		auto temp = pHead;
+		while (temp->pNext) 
+		{
+			if (temp->pNext->wynik <= wynik) {
+				current->pNext = temp->pNext;
+				temp->pNext = current;
+				return;
+			}
+			temp = temp->pNext;
+		}
+		temp->pNext = current;
+		return;
+	}
 }
 

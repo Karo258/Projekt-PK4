@@ -102,8 +102,7 @@ int main()
 	pola_planszy = Board();
 
 	//wynik na pocz¹tku dzia³ania programu
-	const char* twoj_wynik = "0 0 0";
-	al_draw_text(big_ttf_font, al_map_rgb(0, 0, 0), 890, 280, 0, twoj_wynik);
+	int wynik = 0;
 
 	//utworzenie jednokierunkowej listy wyników
 	lista* score_list = new lista();
@@ -140,7 +139,6 @@ int main()
 
 	bool end = false; //zmienna lokalna przechowuj¹ca warunek g³ównej pêtli programu
 	srand(time(NULL));
-	int s = 0;
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 	int counter = 1;
 	while (!end) //g³ówna pêtla programu
@@ -171,7 +169,6 @@ int main()
 				new_balls.clear();				//usuniêcie wektora kulek do wyrysowania na planszy
 			}
 			
-			//al_wait_for_event(event_queue, &event);
 			al_get_mouse_state(&mouse);
 			if (al_mouse_button_down(&mouse, 1))
 			{
@@ -181,6 +178,7 @@ int main()
 					y1 = mouse.y - (mouse.y % 70);
 				}
 			}
+
 			al_get_mouse_state(&mouse);
 			if (al_mouse_button_down(&mouse, 2))
 			{
@@ -192,13 +190,18 @@ int main()
 				
 			}
 			pola_planszy.swap(x1, y1, x2, y2);
-			pola_planszy.deleting(s, counter);
+			pola_planszy.deleting(wynik, counter);
 		}
 		
+		aktualny_wynik.draw();
+		al_draw_text(big_ttf_font, al_map_rgb(0, 0, 0), 890, 280, 0, (std::to_string(wynik)).c_str());
+
 		if (pola_planszy.is_full())
 			end = true;
 		al_flip_display();
 	}
+
+	score_list->dodaj_w_odpowiednim_miejscu(wynik);
 
 	//pêtla do wykonywania wszystkich opcji po zakoñczeniu gry oraz wypisywania wyników
 	bool definitive_end = false;
@@ -228,7 +231,7 @@ int main()
 	}
 
 	//zapisanie tabeli wyników do pliku tekstowego po zakoñczeniu gry przez u¿ytkownika
-	if (end)
+	if (definitive_end)
 		write_to_file("tabela_wynikow.txt", score_list);
 
 	//usuniêcie wektora przycisków

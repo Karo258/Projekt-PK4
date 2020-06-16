@@ -10,12 +10,15 @@ void read_from_file(const std::string filename, lista* moja_lista)
 	std::ifstream plik_wejsciowy(filename);
 	
 	std::string s;
-	while (not plik_wejsciowy.eof())
+	if (plik_wejsciowy.good() == true)
 	{
-		std::getline(plik_wejsciowy, s);
-		moja_lista->dodaj_na_koniec(s);
+		while (!plik_wejsciowy.eof())
+		{
+			int punkty;
+			plik_wejsciowy >> punkty;
+			moja_lista->dodaj_na_koniec(punkty);
+		}
 	}
-
 	//zamkniêcie pliku
 	plik_wejsciowy.close();
 }
